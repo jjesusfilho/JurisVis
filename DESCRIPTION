@@ -10,3 +10,22 @@ Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Suggests: 
+    roxygen2 (>= 6.1.1)
+Imports: 
+    rlang (>= 0.1.2),
+    magrittr (>= 1.5),
+    glue,
+    dplyr,
+    tidyquant,
+    timetk,
+    leaflet,
+    echarts4r,
+    tidyr,
+    purrr,
+    highcharter,
+    shiny,
+    shinydashboard,
+    flexdashboard
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
