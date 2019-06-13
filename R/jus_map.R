@@ -1,9 +1,6 @@
-#' Modulo
+#' Plots leaflet map
 #'
 #' This is a page module ...
-#' @param input The input object
-#' @param output The output object
-#' @param session The session object
 #' @param id id
 #' @param ... Any additional parameters passed to the module
 #' @export
@@ -25,7 +22,19 @@ mapaui <- function(id){
 
   )
 }
-
+#' server
+#' @param input The input object
+#' @param output The output object
+#' @param session The session object
+#' @param ... Any additional parameters passed to the module
+#' @export
+#' @importFrom shiny NS fluidRow textInput tagList renderUI
+#'     selectInput eventReactive observeEvent observe
+#' @importFrom shinydashboard box
+#' @importFrom leaflet leafletOutput addTiles leaflet
+#'     setView addMarkers clearMarkers leafletProxy
+#'     labelOptions fitBounds icons
+#' @importFrom dplyr filter pull mutate
 mapa <- function(input, output, session){
   ns <- session$ns
 

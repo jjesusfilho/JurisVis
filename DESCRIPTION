@@ -31,7 +31,6 @@ Imports:
     DT,
     attempt,
     htmltools,
-    golem,
     dbx,
     viridis,
     tibble,
