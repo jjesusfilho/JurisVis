@@ -1,7 +1,7 @@
 lapso <-
   function (data_inicial = NULL,
             data_final = NULL,
-            unidade = "mes")
+            unit = "month")
   {
     if (!lubridate::is.Date(data_inicial) |
         !lubridate::is.Date(data_final)) {

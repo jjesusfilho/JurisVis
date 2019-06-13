@@ -16,39 +16,42 @@ jus_bench <-
            matter,
            decision_date,
            label,
-           periodicity="monthly") {
+           peridiocity="monthly") {
     suppressWarnings({
       di <- rlang::enexpr(entry_date)
       de <- rlang::enexpr(matter)
       dd <- rlang::enexpr(decision_date)
 
-      per<-switch(periodicity,
-                  "weekly"=xts::apply.weekly,
-                  "monthly"=xts::apply.monthly,
-                  "yearly"=xts::apply.yearly)
+      per<-switch(peridiocity,
+                  'weekly'=xts::apply.weekly,
+                  'monthly'=xts::apply.monthly,
+                  'yearly'=xts::apply.yearly
+      )
 
       df <- df %>%
         dplyr::select(entry_date := !!di, matter := !!de, decision_date := !!dd)
 
       df <- df %>%
-        dplyr::mutate(processing_time = lapso(entry_date, decision_date)) %>%
+        dplyr::mutate(processing_time = lubridate::interval(entry_date, decision_date) %>%
+                        lubridate::time_length("month")) %>%
         dplyr::select(-decision_date) %>%
         dplyr::mutate(matter = matter,
                       ind = dplyr::row_number()) %>%
         tidyr::spread(matter, processing_time) %>%
         dplyr::mutate(ind = NULL) %>%
-        tidyquant::tq_transmute(mutate_fun = per,
+        tidyquant::tq_transmute(mutate_fun = xts::apply.monthly,
                                 FUN = mean,
                                 na.rm = TRUE)
 
-      theme <- unique(df$matter)
+      subject <- unique(df$matter)
 
       df <- purrr::map(df[-1],  ~ data.frame(date = df$entry_date, .x))
 
       df <-
-        purrr::map(df,  ~ timetk::tk_xts(.x, date_var = date) %>% round(1))
+        purrr::map(df,  ~ timetk::tk_xts(.x, date_var = date) %>%
+                     round(1))
 
-      titulo_tema <- if (length(theme) == 1) {
+      subject_title <- if (length(subject) == 1) {
         glue::glue('Tempo entre {referencia} e o julgamento para o {theme} ao longo dos meses')
 
       } else{
@@ -60,7 +63,7 @@ jus_bench <-
       cores <- viridis::viridis(length(df))
 
       hc <- highcharter::highchart(type = "stock") %>%
-        highcharter::hc_title(text = titulo_tema)
+        highcharter::hc_title(text = subject_title)
 
 
       for (i in seq_along(df)) {
