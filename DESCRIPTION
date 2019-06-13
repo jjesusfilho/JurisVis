@@ -37,10 +37,11 @@ Imports:
     lubridate,
     stats,
     stringr,
-    ggplot2,
+    ggplot2
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Depends: 
     quantmod,
     PerformanceAnalytics,
     zoo,
     xts
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
