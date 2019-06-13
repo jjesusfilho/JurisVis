@@ -29,7 +29,7 @@ You can install the development version
 pak::pkg_install("jjesusfilho/JurisVis")
 ```
 
-## Warnings
+## Development status
 
 This package is a gathering of functions and shiny modules that I  use to build dashboards and reports. I am still figuring out whether they should make up a shiny package or just a set of independent functions.
 
