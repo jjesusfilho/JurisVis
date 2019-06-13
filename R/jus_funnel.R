@@ -1,19 +1,21 @@
-#' Cria funil echarts a partir dos critérios de exclusão para chegar na base de análise.
+#' Builds a funnel plot showing criteria and number of dockets removed along the research
 #'
-#' @param estagios vetor com etpas de filtragens
-#' @param subtracoes vetor com quantidades de processos excluídos
-#' @param titulo Título do gráfico
+#' @param stages vector with filtering stages.
+#' @param initial initial number of dockets.
+#' @param removals vector with number of dockets removed at each stage.
+#'     It should be one element shorter than stages.
+#' @param title funnel title.
 #'
-#' @return funil echarts.
+#' @return echarts funnel.
 #' @export
 #'
-jus_funnel<-function(estagios=NULL,subtracoes=NULL,titulo=""){
+jus_funnel<-function(stages=NULL,initial=NULL,removals=NULL,title=""){
 
-  valores = purrr::accumulate(subtracoes,`-`)
+  values= purrr::accumulate(c(initial,removals),`-`)
 
-  data.frame(stage = estagios,value=subtracoes) %>%
+  data.frame(stage = stages,value=values) %>%
     echarts4r::e_charts(width="70%") %>%
-    echarts4r::e_title(titulo) %>%
+    echarts4r::e_title(title) %>%
     echarts4r::e_funnel(value, stage,legend=FALSE) %>%
     echarts4r::e_tooltip()
 

@@ -7,13 +7,13 @@
 mapaui(id)
 }
 \arguments{
+\item{id}{id}
+
 \item{input}{The input object}
 
 \item{output}{The output object}
 
 \item{session}{The session object}
-
-\item{data}{Global data passed on by global.R}
 
 \item{...}{Any additional parameters passed to the module}
 }

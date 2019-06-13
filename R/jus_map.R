@@ -4,15 +4,16 @@
 #' @param input The input object
 #' @param output The output object
 #' @param session The session object
-#' @param data Global data passed on by global.R
+#' @param id id
 #' @param ... Any additional parameters passed to the module
-#' @examples
 #' @export
-#' @importFrom shiny NS fluidRow
-#' @importFrom shiny textInput
+#' @importFrom shiny NS fluidRow textInput tagList renderUI
+#'     selectInput eventReactive observeEvent observe
 #' @importFrom shinydashboard box
-#' @importFrom shiny tagList
-#' @importFrom leaflet leafletOutput
+#' @importFrom leaflet leafletOutput addTiles leaflet
+#'     setView addMarkers clearMarkers leafletProxy
+#'     labelOptions fitBounds icons
+#' @importFrom dplyr filter pull mutate
 
 mapaui <- function(id){
   ns <- NS(id)
@@ -25,13 +26,13 @@ mapaui <- function(id){
   )
 }
 
-mapa <- function(input, output, session,conn){
+mapa <- function(input, output, session){
   ns <- session$ns
 
   observeEvent(input$comarca,{
 
     foros <-  df %>%
-      filter(comarca==input$comarca) %>%
+      filter(comarca == input$comarca) %>%
       pull("foro") %>%
       unique()
 
@@ -48,9 +49,9 @@ mapa <- function(input, output, session,conn){
   observeEvent(input$foro,{
 
     varas <- df %>%
-      dplyr::filter(comarca == input$comarca) %>%
-      dplyr::filter(foro == input$foro) %>%
-      dplyr::pull("vara") %>%
+      filter(comarca == input$comarca) %>%
+      filter(foro == input$foro) %>%
+      pull("vara") %>%
       unique()
 
     output$vara <- renderUI({
@@ -70,16 +71,16 @@ mapa <- function(input, output, session,conn){
       dplyr::filter(foro == input$foro) %>%
       dplyr::filter(vara == input$vara) %>%
       dplyr::filter(decisao %in% c("provido","improvido","parcial")) %>%
-      dplyr::mutate(decisao=ifelse(decisao=="improvido","improvido","provido"))
+      dplyr::mutate(decisao=ifelse(decisao == "improvido","improvido","provido"))
   })
 
 
 
   observe({
     output$mapa <- leaflet::renderLeaflet({
-      leaflet::leaflet() %>%
-        leaflet::addTiles() %>%
-        leaflet::fitBounds(-51.39139,-24.75958,-45.06320,-20.63579)
+      leaflet() %>%
+        addTiles() %>%
+        fitBounds(-51.39139,-24.75958,-45.06320,-20.63579)
 
     })
   })
@@ -104,7 +105,7 @@ mapa <- function(input, output, session,conn){
 
     ll_mapa<-resposta()
 
-    proxy <- leaflet::leafletProxy("mapa",data=ll_mapa)
+    proxy <- leafletProxy("mapa",data=ll_mapa)
 
     proxy %>%
       leaflet::setView(lng=mean(ll_mapa$longitude),lat=mean(ll_mapa$latitude), zoom=6)

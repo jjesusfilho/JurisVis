@@ -2,22 +2,22 @@
 % Please edit documentation in R/jus_bar.R
 \name{jus_bar}
 \alias{jus_bar}
-\title{Gráfico de barras com variável binária dependente e outra dependente}
+\title{Bar plot showing the relationship between the predicted and one predictor variable.}
 \usage{
-jus_bar(base, grupo, decisao, titulo)
+jus_bar(df, group, decision, title)
 }
 \arguments{
-\item{base}{data.frame com dependente e independentes}
+\item{df}{data.frame with predictor and predicted variables.}
 
-\item{grupo}{variável categórica a ocupar eixo x}
+\item{group}{predictor.}
 
-\item{decisao}{variável dependente binária}
+\item{decision}{predicted variable.}
 
-\item{titulo}{título do gráfico}
+\item{title}{plot title.}
 }
 \value{
-gráfico de barras com VI no eixo x e VD no eixo y.
+bar plot with group in the x axis and decision count in the y axis.
 }
 \description{
-Gráfico de barras com variável binária dependente e outra dependente
+Bar plot showing the relationship between the predicted and one predictor variable.
 }

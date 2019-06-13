@@ -2,20 +2,24 @@
 % Please edit documentation in R/jus_funnel.R
 \name{jus_funnel}
 \alias{jus_funnel}
-\title{Cria funil echarts a partir dos critérios de exclusão para chegar na base de análise.}
+\title{Builds a funnel plot showing criteria and number of dockets removed along the research}
 \usage{
-jus_funnel(estagios = NULL, subtracoes = NULL, titulo = "")
+jus_funnel(stages = NULL, initial = NULL, removals = NULL,
+  title = "")
 }
 \arguments{
-\item{estagios}{vetor com etpas de filtragens}
+\item{stages}{vector with filtering stages.}
 
-\item{subtracoes}{vetor com quantidades de processos excluídos}
+\item{initial}{initial number of dockets.}
 
-\item{titulo}{Título do gráfico}
+\item{removals}{vector with number of dockets removed at each stage.
+It should be one element shorter than stages.}
+
+\item{title}{funnel title.}
 }
 \value{
-funil echarts.
+echarts funnel.
 }
 \description{
-Cria funil echarts a partir dos critérios de exclusão para chegar na base de análise.
+Builds a funnel plot showing criteria and number of dockets removed along the research
 }

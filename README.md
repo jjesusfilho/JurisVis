@@ -15,15 +15,16 @@ This packages produces visualizations for judicial decisions’ analysis
 
 ## Installation
 
-You can install the released version of JurisVis from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the development version
 
 ``` r
-install.packages("JurisVis")
+pak::pkg_install("jjesusfilho/JurisVis")
 ```
 
-## Example
+## Warnings
 
-This is a basic example which shows you how to solve a common problem:
+This package is a gathering of functions and shiny modules that I use to
+build dashboards and reports. I am still figuring out whether they
+should make up a shiny package or just a set of independent functions.
 
-`r example library(JurisVis)`
+I haven’t tested its functions enough to ensure they work accordingly.

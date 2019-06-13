@@ -1,34 +1,40 @@
-#' Gráfico de barras com variável binária dependente e outra dependente
+#' Bar plot showing the relationship between the predicted and one predictor variable.
 #'
-#' @param base data.frame com dependente e independentes
-#' @param grupo variável categórica a ocupar eixo x
-#' @param decisao variável dependente binária
-#' @param titulo título do gráfico
+#' @param df data.frame with predictor and predicted variables.
+#' @param group predictor.
+#' @param decision predicted variable.
+#' @param title plot title.
 #'
-#' @return gráfico de barras com VI no eixo x e VD no eixo y.
+#' @return bar plot with group in the x axis and decision count in the y axis.
 #' @export
 #'
-jus_bar <- function(base, grupo, decisao, titulo) {
-  g <- rlang::enexpr(grupo)
-  d <- rlang::enexpr(decisao)
+jus_bar <- function(df, group, decision, title) {
+
+  g <- rlang::enexpr(group)
+
+  d <- rlang::enexpr(decision)
 
 
-  df <- base %>%
-    dplyr::select(grupo := !!g, decisao := !!d)
 
-  variaveis <- df %>%
-    dplyr::distinct(decisao) %>%
-    dplyr::pull(decisao) %>%
-    as.character()
 
-  df %>%
-    dplyr::count(grupo, decisao) %>%
-    tidyr::spread(key=decisao, value=n) %>%
-    dplyr::mutate(total = .data[[variaveis[[1]]]] + .data[[variaveis[[2]]]]) %>%
+
+dd <- df %>%
+    dplyr::select(group := !!g, decision := !!d)
+
+
+v <- unique(dd$decision) %>%
+  as.character()
+
+
+  dd %>%
+    dplyr::count(group, decision) %>%
+    tidyr::spread(key=decision, value=n) %>%
+    dplyr::mutate(total = .data[[v[[1]]]] + .data[[v[[2]]]]) %>%
     dplyr::arrange(dplyr::desc(total)) %>%
-    echarts4r::e_charts(grupo) %>%
-    echarts4r::e_bar(.data[[variaveis[[1]]]], name = variaveis[[1]], stack = "grp") %>%
-    echarts4r::e_bar(.data[[variaveis[[2]]]], name = variaveis[[2]], stack = "grp") %>%
-    echarts4r::e_tooltip() %>%
-    echarts4r::e_title(titulo)
+     echarts4r::e_charts(group) %>%
+     echarts4r::e_bar_(v[1], name =v[1], stack = "grp") %>%
+     echarts4r::e_bar_(v[2], name = v[2], stack = "grp") %>%
+     echarts4r::e_tooltip() %>%
+     echarts4r::e_title(title)
 }
+

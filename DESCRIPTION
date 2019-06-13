@@ -11,7 +11,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    roxygen2 (>= 6.1.1)
+    roxygen2 (>= 6.1.1),
+    testthat
 Imports: 
     rlang (>= 0.1.2),
     magrittr (>= 1.5),
@@ -26,6 +27,17 @@ Imports:
     highcharter,
     shiny,
     shinydashboard,
-    flexdashboard
+    flexdashboard,
+    DT,
+    attempt,
+    htmltools,
+    golem,
+    dbx,
+    viridis,
+    tibble,
+    lubridate,
+    stats,
+    stringr,
+    ggplot2
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
