@@ -37,6 +37,10 @@ Imports:
     lubridate,
     stats,
     stringr,
-    ggplot2
+    ggplot2,
+    quantmod,
+    PerformanceAnalytics,
+    zoo,
+    xts
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1

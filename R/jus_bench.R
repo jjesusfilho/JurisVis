@@ -15,11 +15,17 @@ jus_bench <-
            entry_date,
            matter,
            decision_date,
-           label) {
+           label,
+           periodicity="monthly") {
     suppressWarnings({
       di <- rlang::enexpr(entry_date)
       de <- rlang::enexpr(matter)
       dd <- rlang::enexpr(decision_date)
+
+      per<-switch(periodicity,
+                  "weekly"=xts::apply.weekly,
+                  "monthly"=xts::apply.monthly,
+                  "yearly"=xts::apply.yearly)
 
       df <- df %>%
         dplyr::select(entry_date := !!di, matter := !!de, decision_date := !!dd)
@@ -31,7 +37,7 @@ jus_bench <-
                       ind = dplyr::row_number()) %>%
         tidyr::spread(matter, processing_time) %>%
         dplyr::mutate(ind = NULL) %>%
-        tidyquant::tq_transmute(mutate_fun = apply.monthly,
+        tidyquant::tq_transmute(mutate_fun = per,
                                 FUN = mean,
                                 na.rm = TRUE)
 

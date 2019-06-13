@@ -4,7 +4,8 @@
 \alias{jus_bench}
 \title{Builds a time series benchmarking processing time.}
 \usage{
-jus_bench(df, entry_date, matter, decision_date, label)
+jus_bench(df, entry_date, matter, decision_date, label,
+  periodicity = "monthly")
 }
 \arguments{
 \item{df}{dataframe with the matter, file date (could be a crime date), and decision date.}
