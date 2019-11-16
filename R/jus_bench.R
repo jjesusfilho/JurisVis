@@ -5,6 +5,7 @@
 #' @param matter matter
 #' @param decision_date decision or any other reference date.
 #' @param label label to the matter.
+#' @param peridiocity c("monthly", "yearly", "weekly")
 #'
 #'
 #' @return time series with processing benchmark.

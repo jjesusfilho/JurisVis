@@ -17,6 +17,8 @@ jus_bench(df, entry_date, matter, decision_date, label,
 \item{decision_date}{decision or any other reference date.}
 
 \item{label}{label to the matter.}
+
+\item{peridiocity}{c("monthly", "yearly", "weekly")}
 }
 \value{
 time series with processing benchmark.
