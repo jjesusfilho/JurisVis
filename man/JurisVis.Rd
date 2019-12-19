@@ -3,7 +3,6 @@
 \docType{package}
 \name{JurisVis}
 \alias{JurisVis}
-\alias{JurisVis-package}
 \title{\code{JurisVis} package}
 \description{
 Text mining of Brazilian judicial decisions

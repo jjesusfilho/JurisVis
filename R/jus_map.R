@@ -16,6 +16,7 @@ mapaui <- function(id){
   ns <- NS(id)
   tagList(
 
+    uiOutput(ns("comarca")),
 
     leafletOutput(ns("mapa"))
 
@@ -35,50 +36,29 @@ mapaui <- function(id){
 #'     setView addMarkers clearMarkers leafletProxy
 #'     labelOptions fitBounds icons
 #' @importFrom dplyr filter pull mutate
-mapa <- function(input, output, session){
+mapa <- function(input, output, session, df){
   ns <- session$ns
 
-  observeEvent(input$comarca,{
+  observe({
 
-    foros <-  df %>%
-      filter(comarca == input$comarca) %>%
-      pull("foro") %>%
-      unique()
+    output$comarca <- renderUI({
 
-    output$foro <- renderUI({
-
-
-      selectInput("foroUI",
-                  "Selecione o foro:",
-                  choices = foros)
-
-    })
-  })
-
-  observeEvent(input$foro,{
-
-    varas <- df %>%
-      filter(comarca == input$comarca) %>%
-      filter(foro == input$foro) %>%
-      pull("vara") %>%
-      unique()
-
-    output$vara <- renderUI({
-
-      selectInput("varaUI",
-                  "Selecione a vara:",
-                  choices = varas)
+      selectInput("comarcaUI",
+                  label = "Selecione a comarca",
+                  selected = "São Paulo",
+                  choices = unique(df$comarca))
 
     })
 
+
   })
 
-  resposta<-eventReactive(input$mostrar,{
+
+
+  resposta <-eventReactive(input$mostrar,{
 
      df %>%
       dplyr::filter(comarca == input$comarca) %>%
-      dplyr::filter(foro == input$foro) %>%
-      dplyr::filter(vara == input$vara) %>%
       dplyr::filter(decisao %in% c("provido","improvido","parcial")) %>%
       dplyr::mutate(decisao=ifelse(decisao == "improvido","improvido","provido"))
   })
@@ -101,7 +81,7 @@ mapa <- function(input, output, session){
 
     proxy<-leaflet::leafletProxy("mapa",data=l_mapa) %>%
       leaflet::clearMarkers() %>%
-      leaflet::addMarkers(lng=~mean(longitude),lat=~mean(latitude),
+      leaflet::addMarkers(lng=~mean(lng),lat=~mean(lat),
                           popup=sprintf("Comarca: %s <br> Foro: %s <br> Vara: %s <br> Casos: %d",input$comarca,,input$foro,nrow()),
                           labelOptions = labelOptions(noHide = T, direction = 'top', textOnly = T,textsize="7px"),
                           icon=~icons(
@@ -117,7 +97,7 @@ mapa <- function(input, output, session){
     proxy <- leafletProxy("mapa",data=ll_mapa)
 
     proxy %>%
-      leaflet::setView(lng=mean(ll_mapa$longitude),lat=mean(ll_mapa$latitude), zoom=6)
+      leaflet::setView(lng=mean(ll_mapa$lng),lat=mean(ll_mapa$lng), zoom=6)
 
   })
 

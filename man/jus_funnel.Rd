@@ -4,8 +4,7 @@
 \alias{jus_funnel}
 \title{Builds a funnel plot showing criteria and number of dockets removed along the research}
 \usage{
-jus_funnel(stages = NULL, initial = NULL, removals = NULL,
-  title = "")
+jus_funnel(stages = NULL, initial = NULL, removals = NULL, title = "")
 }
 \arguments{
 \item{stages}{vector with filtering stages.}

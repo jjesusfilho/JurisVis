@@ -4,7 +4,7 @@
 \alias{mapa}
 \title{server}
 \usage{
-mapa(input, output, session)
+mapa(input, output, session, df)
 }
 \arguments{
 \item{input}{The input object}

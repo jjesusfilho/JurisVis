@@ -1,12 +1,12 @@
 Package: JurisVis
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Creates Charts For Jurimetric Analysis
+Version: 0.1.0.9000
 Authors@R: 
     person(given = "José",
            family = "de Jesus Filho",
            role = c("aut", "cre"),
            email = "jjesusfilho@gmail.com")
-Description: What the package does (one paragraph).
+Description: Creates charts for jurimetric analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -44,4 +44,4 @@ Imports:
     xts,
     zoo
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

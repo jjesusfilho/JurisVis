@@ -4,8 +4,10 @@
 \alias{juris_tree}
 \title{Cria árvore de probabilidades numa distribuição binomial}
 \usage{
-juris_tree(p = NULL, probs = list(0.63, c(0.56, 0.78), c(0.89, 0.43,
-  0.76, 0.25)))
+juris_tree(
+  p = NULL,
+  probs = list(0.63, c(0.56, 0.78), c(0.89, 0.43, 0.76, 0.25))
+)
 }
 \arguments{
 \item{p}{Se você informar uma única probabilidade,
