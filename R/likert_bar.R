@@ -110,7 +110,7 @@ likert_bar <- function(df, grupo, variavel, titulo)
     dd %>% dplyr::mutate(total = .data[[v[[1]]]] + .data[[v[[2]]]]) %>%
       dplyr::mutate(total= rowSums(.[2:3])) %>%
       dplyr::mutate_at(2:3,list(~(.*100/total) %>% round(1))) %>%
-      dplyrmutate(total = NULL) %>%
+      dplyr::mutate(total = NULL) %>%
       echarts4r::e_charts(grupo) %>%
       echarts4r::e_bar_(v[1], name = v[1], stack = "grp") %>%
       echarts4r::e_bar_(v[2], name = v[2], stack = "grp") %>%
