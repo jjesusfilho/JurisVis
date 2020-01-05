@@ -1,21 +1,23 @@
-#' Echarts for likert scale
+#' Echarts for discrete scale
 #'
 #' @param df Data.frame
 #' @param grupo Groping variable
-#' @param variavel Likert item
+#' @param variavel discrete items
 #' @param titulo Title
 #'
 #' @details It only charts  2, 3, 5, and 7
 #'     levels. It also removes NAs.
 #'
-#' @return Chart that can also be downloaded
+#' @return Chart that can also be downloaded as png
 #' @export
 #'
-likert_bar <- function(df, grupo, variavel, titulo)
+
+discrete_bar <- function(df, grupo, variavel, titulo)
 {
 
   g <- rlang::enexpr(grupo)
   d <- rlang::enexpr(variavel)
+
   dd <- df %>%
     dplyr::select(`:=`(grupo, !!g), `:=`(variavel, !!d))
 
@@ -24,9 +26,13 @@ likert_bar <- function(df, grupo, variavel, titulo)
     unique() %>%
     length()
 
+ cor= viridis::viridis_pal(option="B")(categorias)%>%
+      jsonlite::toJSON() %>%
+  paste0('{"color":',.,'}')
+
 
   dd <- dd %>% dplyr::count(grupo,variavel) %>%
-    na.omit() %>%
+    stats::na.omit() %>%
     tidyr::spread(key = variavel,  value = n) %>%
     janitor::clean_names()
 
@@ -54,8 +60,7 @@ likert_bar <- function(df, grupo, variavel, titulo)
       echarts4r::e_toolbox_feature() %>%
       echarts4r::e_title(titulo) %>%
       echarts4r::e_flip_coords() %>%
-      echarts4r::e_theme_custom('{"color":["#b35806", "#f1a340", "#fee0b6", "#f7f7f7", "#d8daeb", "#998ec3",
-"#542788"]}')
+      echarts4r::e_theme_custom(cor)
 
   } else if (categorias == 5){
 
@@ -78,7 +83,7 @@ likert_bar <- function(df, grupo, variavel, titulo)
       echarts4r::e_toolbox_feature() %>%
       echarts4r::e_title(titulo) %>%
       echarts4r::e_flip_coords() %>%
-      echarts4r::e_theme_custom('{"color":["#e66101", "#fdb863", "#f7f7f7", "#b2abd2", "#5e3c99"]}')
+      echarts4r::e_theme_custom(cor)
 
   } else if (categorias == 3) {
 
@@ -99,7 +104,7 @@ likert_bar <- function(df, grupo, variavel, titulo)
       echarts4r::e_toolbox_feature() %>%
       echarts4r::e_title(titulo) %>%
       echarts4r::e_flip_coords()%>%
-      echarts4r::e_theme_custom('{"color":["#f1a340", "#f7f7f7", "#998ec3"]}')
+      echarts4r::e_theme_custom(cor)
 
 
 
@@ -120,7 +125,7 @@ likert_bar <- function(df, grupo, variavel, titulo)
       echarts4r::e_toolbox_feature() %>%
       echarts4r::e_title(titulo) %>%
       echarts4r::e_flip_coords()%>%
-      echarts4r::e_theme_custom('{"color":["#e66101","#5e3c99"]}')
+      echarts4r::e_theme_custom(cor)
 
 
 

@@ -42,6 +42,8 @@ Imports:
     PerformanceAnalytics,
     quantmod,
     xts,
-    zoo
+    zoo,
+    jsonlite,
+    janitor
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
