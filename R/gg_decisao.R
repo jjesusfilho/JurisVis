@@ -1,43 +1,77 @@
-#' plota gg_plot
+#' Plota distribuição das decisões conforme a câmara e o recorrente
 #'
-#' @param df
-#' @param fator
-#' @param decisao
-#' @param faceta
-#' @param titulo
+#' @param data dataframe
+#' @param title Título do gráfico
+#' @param x orgao julgador, geralmente a câmara
+#' @param facet facetas para facet_grid, geralmente o recorrente
+#' @param fill preenchimento, geralmente a decisão
+#' @param ordered se verdadeiro irá extrair somente os números e as siglas
+#'     e ordená-la adequadaemente.
+#' @param x_label etiqueta para órgão julgador, geralmente "câmara"
+#' @param y_label etiqueta para número de casos, geralmente "número de decisões"
+#' @param legend título da legenda
+#' @param caption indicação da fonte
 #'
-#' @return
+#' @return ggplot
 #' @export
 #'
-#' @examples
-gg_decisao <- function(df,fator,decisao,faceta,titulo=""){
+ggdecisao <-
+  function(data,
+           title = "",
+           x = NULL,
+           facet = NULL,
+           fill = NULL ,
+           ordered = TRUE,
+           x_label = "Câmara",
+           y_label = "Número de decisões",
+           legend = "Decisão",
+           caption = "Fonte: TJSP") {
+    fill <- rlang::enquo(fill)
+    facet <- rlang::enquo(facet)
+    x <- rlang::enquo(x)
 
-  fator <- rlang::enexpr(fator)
-  decisao <- rlang::enexpr(decisao)
-  faceta <- rlang::enexpr(faceta)
+    data <- data %>%
+      dplyr::select(x := !!x, facet := !!facet, fill := !!fill)
 
-  d <- j3 %>%
-    dplyr::select(fator = !!fator, faceta = !!faceta, decisao = !!decisao) %>%
-    dplyr::count(fator,faceta,decisao)
+    if (ordered == TRUE) {
+      data <- data %>%
+        dplyr::mutate(x = stringr::str_remove_all(x, "(\\s+|[:lower:]+)"))
+
+      l <- data %>%
+        dplyr::distinct(x) %>%
+        dplyr::mutate(number = stringr::str_extract(x, "\\d+") %>%  as.numeric) %>%
+        dplyr::arrange(number) %>%
+        dplyr::pull("x")
+
+      data <- data %>%
+        dplyr::mutate(x =  factor(x, levels = l)) %>%
+        dplyr::count(x, facet, fill)
+
+    } else {
+      data <- data %>%
+        dplyr::count(x, facet, fill)
+
+    }
+
+    lege <- paste0(legend, ":")
 
 
-  ggplot2::ggplot(d, ggplot2::aes(x = fator, y = n, fill = decisao)) +
-    ggplot2::geom_bar(stat = "identity",
-                      position = "dodge",
-                      colour = "black") +
-    ggplot2::scale_fill_manual(values = c("red", "darkgreen"), name = "Decisão:") +
-    geom_text(aes(x=fator,y=n,label=n),color="white",position=position_dodge(.9),vjust=0,hjust=1)+
-    ggplot2::facet_grid( ~ faceta) +
-    ggplot2::coord_flip() +
-    ggplot2::theme(
-      strip.background = ggplot2::element_rect(fill = "lightblue", colour = "black"),
-      legend.position = "bottom"
-    ) +
-    ggplot2::labs(
-      title = titulo,
-      x = fator,
-      y = "Número de decisões",
-      caption = "Fonte: TRF3"
-    )
-
-}
+    ggplot2::ggplot(data, ggplot2::aes(x = x, y = n, fill = fill)) +
+      ggplot2::geom_bar(stat = "identity",
+                        position = "dodge",
+                        colour = "black") +
+      ggplot2::scale_fill_manual(values = c("red", "darkgreen"), name = lege) +
+      #geom_text(aes(x=agravante,y=freq,label=freq),position=position_dodge(.9),vjust=-.5)+
+      ggplot2::facet_grid( ~ facet) +
+      ggplot2::coord_flip() +
+      ggplot2::theme(
+        strip.background = ggplot2::element_rect(fill = "lightblue", colour = "black"),
+        legend.position = "bottom"
+      ) +
+      ggplot2::labs(
+        title = title,
+        x = x_label,
+        y = y_label,
+        caption = caption
+      )
+  }

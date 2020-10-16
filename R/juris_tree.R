@@ -15,10 +15,10 @@
 #'      ex. 1ª, 2ª e superior (STJ, STF), sabendo que para cada
 #'      uma dessas instâncias a probabilidade é distinta.
 #'
-#' @return Árvore de probabilidades
+#' @return Árvore de probabilidade
 #' @export
 #'
-juris_tree <- function(p = NULL,probs = list(.63,c(.56,.78),c(.89,.43,.76,.25))){
+juris_tree <- function(p= NULL,probs = list(.63,c(.56,.78),c(.89,.43,.76,.25))){
 
   ## Eventualmente, usarei este código.
 
@@ -38,7 +38,7 @@ juris_tree <- function(p = NULL,probs = list(.63,c(.56,.78),c(.89,.43,.76,.25)))
 
   if (!is.null(p)){
 
-    probs <- list(p,c(p,p),c(p,p,p))
+    probs <- list(p,c(p,p),c(p,p,p,p))
 
   }
 
@@ -61,133 +61,165 @@ juris_tree <- function(p = NULL,probs = list(.63,c(.56,.78),c(.89,.43,.76,.25)))
       from = 1,
       to = 2,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Favorável: ",probs[[1]])
+        label = paste0("Favorável: ",probs[[1]]),
+        fontsize = 15
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 1,
       to = 3,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Desfavorável: ", 1-probs[[1]])
+        label = paste0("Desfavorável: ", 1-probs[[1]]),
+        fontsize = 15
+
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 2,
       to = 4,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Favorável: ",probs[[2]][1])
+        label = paste0("Favorável: ",probs[[2]][1]),
+        fontsize = 15
+
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 2,
       to = 5,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Desfavorável: ",1-probs[[2]][1])
+        label = paste0("Desfavorável: ",1-probs[[2]][1]),
+        fontsize = 15
+
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 3,
       to = 6,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Favorável: ",probs[[2]][2])
+        label = paste0("Favorável: ",probs[[2]][2]),
+        fontsize = 15
+
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 3,
       to = 7,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Desfavorável: ",1 - probs[[2]][2])
+        label = paste0("Desfavorável: ",1 - probs[[2]][2]),
+        fontsize = 15
+
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 4,
       to = 8,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Favorável: ",probs[[3]][1])
+        label = paste0("Favorável: ",probs[[3]][1]),
+        fontsize = 15
+
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 4,
       to = 9,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Desfavorável: ",1- probs[[3]][1])
+        label = paste0("Desfavorável: ",1- probs[[3]][1]),
+        fontsize = 15
+
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 5,
       to = 10,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Favorável: ",probs[[3]][2])
+        label = paste0("Favorável: ",probs[[3]][2]),
+        fontsize = 15
+
       )
     ) %>%
     DiagrammeR::add_edge(
       from = 5,
       to = 11,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Desfavorável: ",1-probs[[3]][2])
+        label = paste0("Desfavorável: ",1-probs[[3]][2]),
+        fontsize = 15
+
       )
     )%>%
     DiagrammeR::add_edge(
       from = 6,
       to = 12,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Favorável: ",probs[[3]][3])
+        label = paste0("Favorável: ",probs[[3]][3]),
+        fontsize = 15
+
       )
     )%>%
     DiagrammeR::add_edge(
       from = 6,
       to = 13,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Desfavorável: ",1-probs[[3]][3])
+        label = paste0("Desfavorável: ",1-probs[[3]][3]),
+        fontsize = 15
+
       )
     )%>%
     DiagrammeR::add_edge(
       from = 7,
       to = 14,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Favorável: ",probs[[3]][4])
+        label = paste0("Favorável: ",probs[[3]][4]),
+        fontsize = 15
+
       )
     )%>%
     DiagrammeR::add_edge(
       from = 7,
       to = 15,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("Dsfavorável: ",probs[[3]][4])
+        label = paste0("Desfavorável: ",1-probs[[3]][4]),
+        fontsize = 15
+
       )
     )%>%
     DiagrammeR::add_edge(
       from = 8,
       to = 16,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("= ",probs[[1]]*probs[[2]][1]*probs[[3]][1])
+        label = paste0("FFF= ",probs[[1]]*probs[[2]][1]*probs[[3]][1]),
+        fontsize = 15
       )
     )%>%
     DiagrammeR::add_edge(
       from = 9,
       to = 17,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("= ",probs[[1]]*probs[[2]][1]*(1-probs[[3]][1]))
+        label = paste0("FFD= ",probs[[1]]*probs[[2]][1]*(1-probs[[3]][1])),
+        fontsize = 15
       )
     )%>%
     DiagrammeR::add_edge(
       from = 10,
       to = 18,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("= ",probs[[1]]*(1-probs[[2]][1])*probs[[3]][2])
+        label = paste0("FDF= ",probs[[1]]*(1-probs[[2]][1])*probs[[3]][2]),
+        fontsize = 15
       )
     )%>%
     DiagrammeR::add_edge(
       from = 11,
       to = 19,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("= ",probs[[1]]*(1-probs[[2]][1])*(1-probs[[3]][2]))
+        label = paste0("FDD= ",probs[[1]]*(1-probs[[2]][1])*(1-probs[[3]][2])),
+        fontsize = 15
       )
     )%>%
     DiagrammeR::add_edge(
       from = 12,
       to = 20,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("= ",(1-probs[[1]])*(probs[[2]][2])*(probs[[3]][3]))
+        label = paste0("DFF= ",(1-probs[[1]])*(probs[[2]][2])*(probs[[3]][3])),
+        fontsize = 15
       )
 
     )%>%
@@ -195,7 +227,8 @@ juris_tree <- function(p = NULL,probs = list(.63,c(.56,.78),c(.89,.43,.76,.25)))
       from = 13,
       to = 21,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("= ",(1-probs[[1]])*(probs[[2]][2])*(1-probs[[3]][3]))
+        label = paste0("DFD= ",(1-probs[[1]])*(probs[[2]][2])*(1-probs[[3]][3])),
+        fontsize = 15
       )
 
     )%>%
@@ -203,7 +236,8 @@ juris_tree <- function(p = NULL,probs = list(.63,c(.56,.78),c(.89,.43,.76,.25)))
       from = 14,
       to = 22,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("= ",(1-probs[[1]])*(1-probs[[2]][2])*(probs[[3]][4]))
+        label = paste0("DDF= ",(1-probs[[1]])*(1-probs[[2]][2])*(probs[[3]][4])),
+        fontsize = 15
       )
 
     )%>%
@@ -211,9 +245,10 @@ juris_tree <- function(p = NULL,probs = list(.63,c(.56,.78),c(.89,.43,.76,.25)))
       from = 15,
       to = 23,
       edge_aes = DiagrammeR::edge_aes(
-        label = paste0("= ",(1-probs[[1]])*(1- probs[[2]][2])*(1- probs[[3]][3]))
+        label = paste0("DDD= ",(1-probs[[1]])*(1- probs[[2]][2])*(1- probs[[3]][3])),
+        fontsize = 15
       )
 
     )
-
+  DiagrammeR::render_graph(tree)
 }

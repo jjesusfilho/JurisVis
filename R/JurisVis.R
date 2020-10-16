@@ -11,4 +11,4 @@ NULL
 if (getRversion() >= "2.15.1")
 
   utils::globalVariables(c(".", "apply.monthly","value","n","total" ,"stage",
-                           "df","vara","processing_time","foro","comarca","target", "decisao","percentual"))
+                           "df","vara","number","processing_time","foro","comarca","target", "decisao","percentual"))

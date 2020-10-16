@@ -21,8 +21,8 @@ leaflet_comarcas_sp <- function(df = NULL){
   leaflet::leaflet() %>%
   leaflet::addTiles() %>%
   leaflet::fitBounds(-51.39139,-24.75958,-45.06320,-20.63579) %>%
-  leaflet::addMarkers(lng=comarcas$lng,lat=comarcas$lat,
-                      popup=sprintf("Comarca: %s <br> Casos: %d",comarcas$comarca,comarcas$n),
+  leaflet::addMarkers(lng=df$lng,lat=df$lat,
+                      popup=sprintf("Comarca: %s <br> Casos: %d",dfs$comarca,df$n),
                       labelOptions = leaflet::labelOptions(noHide = T, direction = 'top', textOnly = T,textsize="7px"),
                       icon = icone_forum)
 

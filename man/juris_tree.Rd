@@ -19,7 +19,7 @@ binomial.}
 probabilidades distintas para cada um dos eventos.}
 }
 \value{
-Árvore de probabilidades
+Árvore de probabilidade
 }
 \description{
 Esta função cria uma visualização de árvore de

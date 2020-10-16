@@ -20,7 +20,7 @@ likert_bar <- function(df, grupo, variavel, titulo)
     dplyr::select(`:=`(grupo, !!g), `:=`(variavel, !!d))
 
   categorias <- dd$variavel %>%
-    na.omit() %>%
+    stats::na.omit() %>%
     unique() %>%
     length()
 
