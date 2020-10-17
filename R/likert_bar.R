@@ -26,7 +26,7 @@ likert_bar <- function(df, grupo, variavel, titulo)
 
 
   dd <- dd %>% dplyr::count(grupo,variavel) %>%
-    na.omit() %>%
+    stats::na.omit() %>%
     tidyr::spread(key = variavel,  value = n) %>%
     janitor::clean_names()
 

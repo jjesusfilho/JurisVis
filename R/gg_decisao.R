@@ -15,7 +15,7 @@
 #' @return ggplot
 #' @export
 #'
-ggdecisao <-
+gg_decisao <-
   function(data,
            title = "",
            x = NULL,

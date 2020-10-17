@@ -12,26 +12,27 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     roxygen2 (>= 6.1.1),
-    testthat
+    testthat,
+    zoo,
+    xts,
+    dbx,
+    DT,
+    PerformanceAnalytics,
+    attempt,
+    htmltools,
+    jsonlite,
+    tidyquant,
+    timetk
 Imports: 
     rlang (>= 0.1.2),
     magrittr (>= 1.5),
     glue,
     dplyr,
-    tidyquant,
-    timetk,
     leaflet,
     echarts4r,
     tidyr,
     purrr,
     highcharter,
-    shiny,
-    shinydashboard,
-    flexdashboard,
-    DT,
-    attempt,
-    htmltools,
-    dbx,
     viridis,
     tibble,
     lubridate,
@@ -39,11 +40,6 @@ Imports:
     stringr,
     ggplot2,
     DiagrammeR,
-    PerformanceAnalytics,
-    quantmod,
-    xts,
-    zoo,
-    jsonlite,
     janitor
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
