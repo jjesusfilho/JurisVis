@@ -19,10 +19,10 @@ jus_dt_cjpg <-  function(df){
                              responsive=TRUE,
                              buttons=TRUE,
                              language=list(search="Busca",
-                                           info="Mostrando de _START_ a _END_ de _TOTAL_ decisões",
-                                           lengthMenu="Mostre _MENU_ decisões",
+                                           info="Mostrando de _START_ a _END_ de _TOTAL_ decis\u00f5es",
+                                           lengthMenu="Mostre _MENU_ decis\u00f5es",
                                            paginate=list(previous="anterior",
-                                                         'next'="próximo")),
+                                                         'next'="pr\u00f3ximo")),
                              columnDefs = list(list(className = 'dt-justify',
                                                     targets = "julgado")))
   )

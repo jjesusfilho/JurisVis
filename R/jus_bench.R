@@ -57,7 +57,7 @@ jus_bench <-
 
       } else{
         glue::glue(
-          'Comparação entre as datas dos assuntos {glue::glue_collapse(theme," , ",last=" e ")} e respectivos julgamentos ao longo dos meses'
+          'Compara\u00e7\u00e3o entre as datas dos assuntos {glue::glue_collapse(theme," , ",last=" e ")} e respectivos julgamentos ao longo dos meses'
         )
       }
 

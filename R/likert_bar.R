@@ -125,7 +125,7 @@ likert_bar <- function(df, grupo, variavel, titulo)
 
 
   } else {
-    stop("Os níveis devem ser 2,3,5 ou 7")
+    stop("Os n\u00edveis devem ser 2,3,5 ou 7")
   }
 
 }
