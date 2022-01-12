@@ -6,7 +6,7 @@ Authors@R:
            family = "de Jesus Filho",
            role = c("aut", "cre"),
            email = "jjesusfilho@gmail.com"),
-       person (given = "Marcelo",
+       person(given = "Marcelo",
                family = "Ventura",
                comment = "https://github.com/zyxdef",
                 role = c("ctb"))

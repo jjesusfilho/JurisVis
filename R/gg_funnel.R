@@ -56,13 +56,15 @@ gg_funnel <- function(x, text = NULL, color = NULL){
 
     if (i == 1){
 
-      x1 <- (x[1] - x[2])/2
 
-      x2 <- x1 + x[2]
 
       x3 <- x[1]
 
       x4 <- 0
+
+      x1 <- seq(x4, x3, length.out = 6)[2]
+
+      x2 <- seq(x4, x3, length.out = 6)[5]
 
 
     } else {
@@ -71,18 +73,14 @@ gg_funnel <- function(x, text = NULL, color = NULL){
 
       x3 <- l1[[i-1]][2]
 
-      if (!is.na(x[i+1]) ) {
 
-        x1 <- seq(x4, x3, length.out = 4)[2]
 
-        x2 <- seq(x4, x3, length.out = 4)[3]
+      x1 <- seq(x4, x3, length.out = 6)[2]
 
-      } else {
+      x2 <- seq(x4, x3, length.out = 6)[5]
 
-        x1 <- x[1]/2
-        x2 <- x1
 
-      }
+
 
     }
 
@@ -94,7 +92,7 @@ gg_funnel <- function(x, text = NULL, color = NULL){
 
   l2 <- purrr::map(length(x):1, ~{
 
-  c(.x*5-5, .x*5-5,.x*5, .x*5)
+    c(.x*5-5, .x*5-5,.x*5, .x*5)
 
 
   })
