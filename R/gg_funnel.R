@@ -17,14 +17,23 @@ gg_funnel <- function(x, text = NULL, color = NULL){
     stop("x must be a numeric vector")
   }
 
+  if(rlang::is_scalar_atomic(x)){
+
+    stop("The length of x must be bigger than 1")
+
+  }
+
   if (any(x<0)){
 
     stop("This function doesn't accept negative values")
 
   }
 
+ if(any(duplicated(x))){
 
+   stop("There are duplicated numbers. Remove them.")
 
+ }
 
   x <- sort(x, decreasing =  T)
 
